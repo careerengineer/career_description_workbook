@@ -976,7 +976,7 @@ const CareerDescWorkbook = () => {
         </div>
 
 
-    <button onClick={dl} className="py-3.5" style={{ width: '100%', color: '#FFFFFF', borderRadius: 12, fontWeight: 700, fontSize: 16, transition: 'all 150ms', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#0E2750', color: '#ffffff' }}>
+    <button onClick={dl} className="py-3.5" style={{ width: '100%', borderRadius: 12, fontWeight: 700, fontSize: 16, transition: 'all 150ms', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#0E2750', color: '#ffffff' }}>
       워드 파일로 다운로드
     </button>
     {downloaded && <div style={{ marginTop: 16, background: '#FBFAF6', border: '1px solid #6E7A8F33', borderColor: '#A8853F', borderRadius: 12, padding: 16, textAlign: 'center' }}><p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750' }}>다운로드 완료!</p></div>}
