@@ -6,8 +6,7 @@ import React, { useState } from 'react';
 // ════════════════════════════════════════════════════════════════
 //  CareerEngineer 워크북 라이브러리 (URL은 나중에 일괄 적용)
 // ════════════════════════════════════════════════════════════════
-const WORKBOOK_LINKS = {
-  roadmap:            { label: 'STEP 0 · 취업준비 진단', url: 'https://www.latpeed.com/products/nDbq9' },
+const WORKBOOK_LINKS = { career_roadmap: { label: 'STEP 0 · 취업준비 진단', url: 'https://www.latpeed.com/products/nDbq9' },
   job_analysis:       { label: 'STEP 1 · 채용공고 및 직무 분석', url: 'https://www.latpeed.com/products/-3Wgm' },
   experience:         { label: 'STEP 2 · 경험 정리', url: 'https://www.latpeed.com/products/wDSaj' },
   motivation:         { label: 'STEP 4 · 지원동기 작성', url: 'https://www.latpeed.com/products/dfdMW' },
@@ -196,12 +195,12 @@ body, * {
 .focus\:border-blue-600:focus {
   --tw-ring-color: #C9A86A !important;
   border-color: #C9A86A !important;
-  box-shadow: 0 0 0 3px rgba(182, 117, 74, 0.12) !important;
+  box-shadow: 0 0 0 3px rgba(201, 168, 106, 0.12) !important;
 }
 input:focus, textarea:focus, select:focus {
   outline: none !important;
   border-color: #C9A86A !important;
-  box-shadow: 0 0 0 3px rgba(182, 117, 74, 0.12) !important;
+  box-shadow: 0 0 0 3px rgba(201, 168, 106, 0.12) !important;
 }
 
 /* ── accent-blue → accent2 (라디오/체크박스) ── */
@@ -242,8 +241,8 @@ button.ce-intro-cta:hover { background-color: #1B3A6B !important; }
 const FirstVisitModal = ({ open, onClose, title, steps }) => {
   if (!open) return null;
   return (
-    <div style={{ position: 'fixed', inset: 0, background: 'rgba(11, 23, 51, 0.4)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }} onClick={onClose}>
-      <div style={{ background: '#fff', borderRadius: 14, padding: 32, maxWidth: 480, width: '100%', boxShadow: '0 20px 50px rgba(11, 23, 51,0.2)' }} onClick={e => e.stopPropagation()}>
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(14, 39, 80, 0.4)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }} onClick={onClose}>
+      <div style={{ background: '#fff', borderRadius: 14, padding: 32, maxWidth: 480, width: '100%', boxShadow: '0 20px 50px rgba(14, 39, 80,0.2)' }} onClick={e => e.stopPropagation()}>
         <h3 style={{ fontSize: 17, fontWeight: 700, color: '#0E2750', margin: 0, marginBottom: 16 }}>{title}</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24 }}>
           {steps.map((s, i) => (
@@ -305,7 +304,7 @@ const CareerDescWorkbook = () => {
     
     // 7단계 구조 - 자소서 5대 항목만 하위 항목 펼침, 나머지는 단일 링크
     const stepGroups = [
-      { step: '0', label: '취업준비 진단', key: 'roadmap' },
+      { step: '0', label: '취업준비 진단', key: 'career_roadmap' },
       { step: '1', label: '채용공고 및 직무 분석', key: 'job_analysis' },
       { step: '2', label: '경험 정리', key: 'experience' },
       { step: '3', inline: true, label: '', items: [
@@ -541,45 +540,144 @@ const CareerDescWorkbook = () => {
   const prev = () => { let n = step - 1; while (n >= 0 && skipStep(n)) n--; go(Math.max(n, 0)); };
 
   const dl = () => {
-    const L = ['CareerEngineer 경력기술서 작성 워크북 - 작성 결과\n' + '='.repeat(50)];
-    const m = { company:'지원 회사',position:'지원 직무',type:'지원자 유형',jd_kw:'JD 핵심 키워드',jd_core:'채용담당자 중요 역량',jd_problem:'회사 과제와 나의 도움',
-      story_one:'경력 한 문장',story_type:'스토리라인 유형',story_type_reason:'스토리라인 유형 선택 이유',story_growth:'이직별 성장 포인트',
-      str1:'강점 1',str2:'강점 2',str3:'강점 3',summary:'경력 요약',
-      exp_list:'경험 나열',exp_selected:'선별된 성과',
-      c1_company:'회사1 이름',c1_period:'회사1 기간',c1_title:'회사1 직책',c1_scope:'회사1 범위' };
-    for (let i = 1; i <= 3; i++) { m[`s${i}_title`]=`성과${i} 제목`; m[`s${i}_bg`]=`성과${i} 배경`; m[`s${i}_role`]=`성과${i} 역할`; m[`s${i}_action`]=`성과${i} 행동`; m[`s${i}_result`]=`성과${i} 성과`; m[`s${i}_ripple`]=`성과${i} 파급`; }
-    Object.assign(m, { c2_company:'회사2 이름',c2_period:'회사2 기간',c2_title:'회사2 직책',
-      lead_team:'팀 규모',lead_budget:'예산 규모',lead_growth:'팀원 성장',lead_measure:'성과 관리',lead_challenge:'어려운 상황',
-      trans_translate:'경험 번역',trans_transfer:'전이 가능 역량',trans_prep:'추가 준비',
-      hard_skills:'하드 스킬',soft_skills:'소프트 스킬',certs:'자격증' });
-    Object.entries(m).forEach(([k,v]) => { if(ans[k]) L.push(`\n[${v}]\n${ans[k]}`); });
-    L.push('\n\n' + '='.repeat(50) + '\n\u00A9 2026 CareerEngineer All Rights Reserved.');
-    const blob = new Blob([L.join('\n')], { type: 'text/plain;charset=utf-8' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `경력기술서_워크북_${ans.company||'미입력'}.doc`; a.click();
+    // 채용담당자 제출용 경력기술서 양식 (HTML 표 형식 + BRIAR 카드)
+    const today = new Date().toISOString().slice(0,10);
+    const v = (k) => (ans[k] || '').toString();
+    const has = (k) => v(k).trim() !== '';
+    const lines = (k) => v(k).split('\n').filter(x => x.trim()).map(x => `<li>${x.replace(/^[•\-*]\s*/, '')}</li>`).join('');
+
+    // 강점 카드 (1~3)
+    const strRows = [1,2,3].filter(n => has(`str${n}`)).map(n => `
+      <tr><td class="lbl">강점 ${n}</td><td>${v(`str${n}`).replace(/\n/g, '<br>')}</td></tr>`).join('');
+
+    // 회사 정보 (1~2)
+    const compRows = [1,2].filter(n => has(`c${n}_company`)).map(n => `
+      <tr>
+        <td class="lbl">${v(`c${n}_period`) || '-'}</td>
+        <td>
+          <strong>${v(`c${n}_company`)}</strong>${v(`c${n}_title`) ? ` <span class="role">/ ${v(`c${n}_title`)}</span>` : ''}
+          ${has(`c${n}_scope`) ? `<div class="scope">담당 범위: ${v(`c${n}_scope`).replace(/\n/g, '<br>')}</div>` : ''}
+        </td>
+      </tr>`).join('');
+
+    // BRIAR 성과 카드 (1~3)
+    const briarCards = [1,2,3].filter(n => has(`s${n}_title`)).map(n => `
+      <div class="briar">
+        <div class="briar-title">성과 ${n}. ${v(`s${n}_title`)}</div>
+        <table class="briar-tbl">
+          ${has(`s${n}_bg`) ? `<tr><td class="b-lbl">B (배경)</td><td>${v(`s${n}_bg`).replace(/\n/g, '<br>')}</td></tr>` : ''}
+          ${has(`s${n}_role`) ? `<tr><td class="b-lbl">R (역할)</td><td>${v(`s${n}_role`).replace(/\n/g, '<br>')}</td></tr>` : ''}
+          ${has(`s${n}_action`) ? `<tr><td class="b-lbl">I/A (행동)</td><td>${v(`s${n}_action`).replace(/\n/g, '<br>')}</td></tr>` : ''}
+          ${has(`s${n}_result`) ? `<tr><td class="b-lbl">R (성과)</td><td><strong>${v(`s${n}_result`).replace(/\n/g, '<br>')}</strong></td></tr>` : ''}
+          ${has(`s${n}_ripple`) ? `<tr><td class="b-lbl">파급</td><td>${v(`s${n}_ripple`).replace(/\n/g, '<br>')}</td></tr>` : ''}
+        </table>
+      </div>`).join('');
+
+    // 핵심 역량
+    const skillSection = (has('hard_skills') || has('soft_skills') || has('certs')) ? `
+      <h2>핵심 역량</h2>
+      <table>
+        ${has('hard_skills') ? `<tr><td class="lbl">하드 스킬</td><td>${v('hard_skills').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('soft_skills') ? `<tr><td class="lbl">소프트 스킬</td><td>${v('soft_skills').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('certs') ? `<tr><td class="lbl">자격증</td><td>${v('certs').replace(/\n/g, '<br>')}</td></tr>` : ''}
+      </table>` : '';
+
+    // 관리/리더십
+    const leadSection = (has('lead_team') || has('lead_growth') || has('lead_measure') || has('lead_challenge')) ? `
+      <h2>관리 · 리더십 경험</h2>
+      <table>
+        ${has('lead_team') ? `<tr><td class="lbl">팀 규모</td><td>${v('lead_team').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('lead_budget') ? `<tr><td class="lbl">예산 규모</td><td>${v('lead_budget').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('lead_growth') ? `<tr><td class="lbl">팀원 성장</td><td>${v('lead_growth').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('lead_measure') ? `<tr><td class="lbl">성과 관리</td><td>${v('lead_measure').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('lead_challenge') ? `<tr><td class="lbl">어려운 상황</td><td>${v('lead_challenge').replace(/\n/g, '<br>')}</td></tr>` : ''}
+      </table>` : '';
+
+    // 직무 전환 (있을 때만)
+    const transSection = (has('trans_translate') || has('trans_transfer') || has('trans_prep')) ? `
+      <h2>직무 전환 — 경험 번역</h2>
+      <table>
+        ${has('trans_translate') ? `<tr><td class="lbl">경험 번역</td><td>${v('trans_translate').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('trans_transfer') ? `<tr><td class="lbl">전이 가능 역량</td><td>${v('trans_transfer').replace(/\n/g, '<br>')}</td></tr>` : ''}
+        ${has('trans_prep') ? `<tr><td class="lbl">추가 준비</td><td>${v('trans_prep').replace(/\n/g, '<br>')}</td></tr>` : ''}
+      </table>` : '';
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>경력기술서 - ${v('company') || '회사'}</title>
+<style>
+body { font-family: '맑은 고딕', sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; color: #0E2750; line-height: 1.6; }
+.header { text-align: center; border-bottom: 3px solid #0E2750; padding-bottom: 16px; margin-bottom: 24px; }
+.header h1 { margin: 0; font-size: 32px; color: #0E2750; }
+.header .meta { color: #6E7A8F; font-size: 16px; margin-top: 8px; }
+.summary { font-size: 16px; line-height: 1.7; padding: 16px 20px; background: #F2F1EC; border-left: 4px solid #C9A86A; margin: 24px 0; }
+h2 { font-size: 18px; color: #0E2750; border-bottom: 2px solid #C9A86A; padding-bottom: 4px; margin: 32px 0 12px; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+table td { padding: 12px 8px; vertical-align: top; border-bottom: 1px solid #F2F1EC; font-size: 16px; }
+table td.lbl { width: 140px; font-weight: 600; color: #1B3A6B; white-space: nowrap; background: #FBFAF6; }
+.role { color: #6E7A8F; font-size: 16px; font-weight: normal; }
+.scope { margin-top: 6px; font-size: 16px; color: #1B3A6B; }
+.briar { background: #FBFAF6; border: 1px solid #F2F1EC; border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+.briar-title { font-size: 16px; font-weight: 700; color: #0E2750; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #F2F1EC; }
+.briar-tbl td { border-bottom: 1px solid #FFFFFF; font-size: 16px; padding: 8px; }
+.briar-tbl td.b-lbl { width: 80px; background: #C9A86A; color: #FFFFFF; text-align: center; font-weight: 700; border-radius: 4px; }
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid #F2F1EC; font-size: 16px; color: #6E7A8F; text-align: center; }
+</style></head><body>
+
+<div class="header">
+  <h1>경력기술서</h1>
+  <div class="meta">${v('company') ? `${v('company')}` : ''} ${v('position') ? `· ${v('position')} 지원` : ''}${v('type') ? ` · ${v('type')}` : ''}</div>
+</div>
+
+${has('story_one') ? `<div class="summary"><strong>경력 한 문장</strong><br>${v('story_one').replace(/\n/g, '<br>')}</div>` : ''}
+
+${has('summary') ? `<h2>경력 요약</h2><div class="summary">${v('summary').replace(/\n/g, '<br>')}</div>` : ''}
+
+${strRows ? `<h2>강점 하이라이트</h2><table>${strRows}</table>` : ''}
+
+${compRows ? `<h2>경력 사항</h2><table>${compRows}</table>` : ''}
+
+${briarCards ? `<h2>주요 성과 (BRIAR)</h2>${briarCards}` : ''}
+
+${leadSection}
+
+${transSection}
+
+${skillSection}
+
+<div class="foot">
+  작성일: ${today} · CareerEngineer 경력기술서 워크북으로 작성<br>
+  © 2026 CareerEngineer. All Rights Reserved.
+</div>
+
+</body></html>`;
+
+    const blob = new Blob([html], { type: 'application/msword;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `경력기술서_${v('company')||'미입력'}_${today}.doc`;
+    a.click();
     setDownloaded(true);
   };
 
   // Components
   const In = ({id,label,placeholder,rows}) => (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#1B3A6B', marginBottom: 6 }}>{label}</label>
-      {rows ? <textarea value={ans[id]||''} onChange={e=>set(id,e.target.value)} rows={rows} placeholder={placeholder} className="resize-none" style={{ width: '100%', paddingLeft: 14, paddingRight: 14, paddingTop: 10, paddingBottom: 10, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F66', borderRadius: 8, fontSize: 14, outline: 'none', background: '#FFFFFF' }} />
-        : <input type="text" value={ans[id]||''} onChange={e=>set(id,e.target.value)} placeholder={placeholder} style={{ width: '100%', paddingLeft: 14, paddingRight: 14, paddingTop: 10, paddingBottom: 10, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F66', borderRadius: 8, fontSize: 14, outline: 'none', background: '#FFFFFF' }} />}
+      <label style={{ display: 'block', fontSize: 16, fontWeight: 600, color: '#1B3A6B', marginBottom: 6 }}>{label}</label>
+      {rows ? <textarea value={ans[id]||''} onChange={e=>set(id,e.target.value)} rows={rows} placeholder={placeholder} className="resize-none" style={{ width: '100%', paddingLeft: 14, paddingRight: 14, paddingTop: 10, paddingBottom: 10, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F66', borderRadius: 8, fontSize: 16, outline: 'none', background: '#FFFFFF' }} />
+        : <input type="text" value={ans[id]||''} onChange={e=>set(id,e.target.value)} placeholder={placeholder} style={{ width: '100%', paddingLeft: 14, paddingRight: 14, paddingTop: 10, paddingBottom: 10, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F66', borderRadius: 8, fontSize: 16, outline: 'none', background: '#FFFFFF' }} />}
     </div>
   );
   const GP = ({id,title,children}) => (
     <div style={{ marginBottom: 16 }}>
-      <button onClick={()=>tog(id)} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#1B3A6B', fontWeight: 600, fontSize: 14, transition: 'all 150ms' }}>
-        <span>{title}</span><span style={{ marginLeft: 4, fontSize: 13 }}>{guides[id] ? '닫기' : '열기'}</span>
+      <button onClick={()=>tog(id)} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#1B3A6B', fontWeight: 600, fontSize: 16, transition: 'all 150ms' }}>
+        <span>{title}</span><span style={{ marginLeft: 4, fontSize: 16 }}>{guides[id] ? '닫기' : '열기'}</span>
       </button>
-      {guides[id] && <div style={{ marginTop: 8, background: '#F2F1EC', border: '1px solid #6E7A8F33', borderColor: '#6E7A8F33', borderRadius: 12, padding: 16, fontSize: 14, color: '#1B3A6B', gap: 12 }}>{children}</div>}
+      {guides[id] && <div style={{ marginTop: 8, background: '#F2F1EC', border: '1px solid #6E7A8F33', borderColor: '#6E7A8F33', borderRadius: 12, padding: 16, fontSize: 16, color: '#1B3A6B', gap: 12 }}>{children}</div>}
     </div>
   );
-  const Tip = ({children}) => (<div style={{ display: 'flex', gap: 12, background: '#FBFAF6', borderLeftWidth: 4, borderLeftStyle: 'solid', borderColor: '#C9A86A', borderTopRightRadius: 8, borderBottomRightRadius: 8, padding: 14, marginBottom: 16 }}><p style={{ fontSize: 14, color: '#0E2750' }}>{children}</p></div>);
-  const Warn = ({title,children}) => (<div style={{ background: '#F2F1EC', border: '1px solid #0E275033', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}><div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}><div><p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750' }}>{title}</p><p style={{ fontSize: 14, color: '#1B3A6B', marginTop: 4 }}>{children}</p></div></div></div>);
-  const Ex = ({children}) => (<div style={{ background: '#FBFAF6', border: '1px solid #C9A86A33', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}><p style={{ fontSize: 12, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>[작성 예시]</p><p className="whitespace-pre-line" style={{ fontSize: 12, color: '#0E2750' }}>{children}</p></div>);
-  const Tbl = ({headers,rows}) => (<div style={{ overflowX: 'auto', marginBottom: 16 }}><table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 12 }}><thead><tr>{headers.map((h,i)=><th key={i} style={{ background: '#1B3A6B', color: '#FFFFFF', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, textAlign: 'left', fontWeight: 600, border: '1px solid #6E7A8F33', borderColor: '#1B3A6B' }}>{h}</th>)}</tr></thead><tbody>{rows.map((row,i)=><tr key={i} className={i%2===0?'bg-white':'bg-slate-50'}>{row.map((cell,j)=><td key={j} style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F33', color: '#1B3A6B' }}>{cell}</td>)}</tr>)}</tbody></table></div>);
+  const Tip = ({children}) => (<div style={{ display: 'flex', gap: 12, background: '#FBFAF6', borderLeftWidth: 4, borderLeftStyle: 'solid', borderColor: '#C9A86A', borderTopRightRadius: 8, borderBottomRightRadius: 8, padding: 14, marginBottom: 16 }}><p style={{ fontSize: 16, color: '#0E2750' }}>{children}</p></div>);
+  const Warn = ({title,children}) => (<div style={{ background: '#F2F1EC', border: '1px solid #0E275033', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}><div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}><div><p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>{title}</p><p style={{ fontSize: 16, color: '#1B3A6B', marginTop: 4 }}>{children}</p></div></div></div>);
+  const Ex = ({children}) => (<div style={{ background: '#FBFAF6', border: '1px solid #C9A86A33', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}><p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>[작성 예시]</p><p className="whitespace-pre-line" style={{ fontSize: 16, color: '#0E2750' }}>{children}</p></div>);
+  const Tbl = ({headers,rows}) => (<div style={{ overflowX: 'auto', marginBottom: 16 }}><table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 16 }}><thead><tr>{headers.map((h,i)=><th key={i} style={{ background: '#1B3A6B', color: '#FFFFFF', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, textAlign: 'left', fontWeight: 600, border: '1px solid #6E7A8F33', borderColor: '#1B3A6B' }}>{h}</th>)}</tr></thead><tbody>{rows.map((row,i)=><tr key={i} className={i%2===0?'bg-white':'bg-slate-50'}>{row.map((cell,j)=><td key={j} style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F33', color: '#1B3A6B' }}>{cell}</td>)}</tr>)}</tbody></table></div>);
   const Chk = ({id,text,action}) => {
     const checked = !!chk[id];
     return (
@@ -588,13 +686,13 @@ const CareerDescWorkbook = () => {
         onMouseLeave={e => { if (!checked) e.currentTarget.style.borderColor = '#6E7A8F33'; }}>
         <input type="checkbox" checked={checked} onChange={()=>togChk(id)} style={{ marginTop: 2, cursor: 'pointer', width: 16, height: 16, accentColor: '#A8853F', flexShrink: 0 }} />
         <div style={{ flex: 1 }}>
-          <p style={{ fontSize: 14, color: '#0E2750', margin: 0, textDecoration: checked ? 'line-through' : 'none', opacity: checked ? 0.7 : 1 }}>{text}</p>
-          {action && <p style={{ fontSize: 12, color: '#6E7A8F', margin: '2px 0 0' }}>{action}</p>}
+          <p style={{ fontSize: 16, color: '#0E2750', margin: 0, textDecoration: checked ? 'line-through' : 'none', opacity: checked ? 0.7 : 1 }}>{text}</p>
+          {action && <p style={{ fontSize: 16, color: '#6E7A8F', margin: '2px 0 0' }}>{action}</p>}
         </div>
       </label>
     );
   };
-  const ST = ({title,sub}) => (<div style={{ marginBottom: 20 }}><div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}><h2 style={{ fontSize: 18, fontWeight: 900, color: '#0E2750' }}>{title}</h2></div>{sub&&<p style={{ fontSize: 14, color: '#6E7A8F' }}>{sub}</p>}</div>);
+  const ST = ({title,sub}) => (<div style={{ marginBottom: 20 }}><div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}><h2 style={{ fontSize: 18, fontWeight: 900, color: '#0E2750' }}>{title}</h2></div>{sub&&<p style={{ fontSize: 16, color: '#6E7A8F' }}>{sub}</p>}</div>);
 
   // INTRO
   if (page === 'intro') return (
@@ -607,6 +705,26 @@ const CareerDescWorkbook = () => {
         '마지막 PART에서 <strong>최종 다운로드</strong>하여 편집하세요.',
       ]} />
       <div style={{ maxWidth: 900, width: '100%', margin: '0 auto' }}>
+        <div style={{ position: 'sticky', top: 16, zIndex: 10, background: '#F2F1EC', borderRadius: 14, padding: 16, border: '1px solid #6E7A8F33', marginBottom: 16, boxShadow: '0 2px 8px rgba(14, 39, 80, 0.12)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+            <CELockupA height={32} />
+            <div style={{ position: 'relative', flex: 1, display: 'flex', justifyContent: 'center' }}>
+              <button onClick={() => setShowStepNav(v => !v)} style={{ 
+                background: '#F2F1EC', border: 'none', cursor: 'pointer',
+                fontSize: 16, color: '#0E2750', textAlign: 'center',
+                padding: '4px 12px', borderRadius: 4, fontFamily: 'inherit',
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 4,
+              }} title="전체 7단계 보기" className="ce-step-nav-trigger">
+                STEP 3 · 경력기술서 작성
+                <span style={{ fontSize: 16, color: '#0E2750', opacity: 1, transform: showStepNav ? 'rotate(180deg)' : 'none', transition: 'transform 150ms' }}>▾</span>
+              </button>
+              <StepNavigatorDropdown open={showStepNav} onClose={() => setShowStepNav(false)} currentKey="career_description" />
+            </div>
+            <button disabled style={{padding: '8px 14px', borderRadius: 8, border: 'none', fontSize: 16, fontWeight: 600, fontFamily: 'inherit', background: '#0E2750', color: '#fff', opacity: 0.4, cursor: 'not-allowed'}} title="작성을 시작하면 활성화됩니다">
+              저장(.doc)
+            </button>
+          </div>
+        </div>
         <div style={{ background: '#fff', borderRadius: 14, padding: 32, border: '1px solid #6E7A8F33', marginBottom: 16 }}>
 
           {/* ═══ 브랜드 블록 (PART 7-6-1 규격) ═══ */}
@@ -627,23 +745,23 @@ const CareerDescWorkbook = () => {
           <h1 style={{ fontSize: 28, fontWeight: 700, color: '#0E2750', textAlign: 'center', margin: 0, marginBottom: 4, lineHeight: 1.35 }}>경력기술서 작성</h1>
           <p style={{ fontSize: 16, color: '#6E7A8F', textAlign: 'center', marginTop: 0, marginBottom: 32, lineHeight: 1.6 }}>질문에 답하며 완성하는 경력기술서 v1.1</p>
           <div style={{ background: '#F2F1EC', borderRadius: 12, padding: 20, marginBottom: 20, gap: 8 }}>
-            <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 8 }}>이 워크북의 작성 순서</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 8 }}>이 워크북의 작성 순서</p>
             {STEPS.slice(0,-1).map((s,i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 16, color: '#1B3A6B' }}>
-                <span style={{ minWidth: 56, height: 24, borderRadius: 4, background: '#0E2750', color: '#ffffff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, flexShrink: 0, padding: '0 8px' }}>PART {i+1}</span>
+                <span style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', flexShrink: 0, minWidth: 56 }}>PART {i+1}</span>
                 <span>{s}</span>
               </div>
             ))}
           </div>
           <div style={{ background: '#F2F1EC', border: '1px solid #1B3A6B33', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}>
-            <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>"무엇을 쓸지"부터 정리합니다</p>
-            <p style={{ fontSize: 12, color: '#0E2750' }}>처음 단계에서는 "어떤 기준으로, 어떤 관점에서 정리하는가"를 먼저 정하고, 이후 단계에서 실제 성과를 기술합니다. 파란색 "가이드 보기"를 클릭하면 작성 원칙이 펼쳐집니다.</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>"무엇을 쓸지"부터 정리합니다</p>
+            <p style={{ fontSize: 16, color: '#0E2750' }}>처음 단계에서는 "어떤 기준으로, 어떤 관점에서 정리하는가"를 먼저 정하고, 이후 단계에서 실제 성과를 기술합니다. 파란색 "가이드 보기"를 클릭하면 작성 원칙이 펼쳐집니다.</p>
           </div>
           <div style={{ background: '#FBFAF6', border: '1px solid #C9A86A33', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}>
-            <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>사전 준비물</p>
-            <p style={{ fontSize: 12, color: '#0E2750' }}>- 지원할 회사의 채용공고 (JD)</p>
-            <p style={{ fontSize: 12, color: '#0E2750' }}>- CareerEngineer 이력서 작성 워크북 (이력서가 먼저 완성되어야 합니다)</p>
-            <p style={{ fontSize: 12, color: '#0E2750' }}>- 각 회사의 재직 기간, 직책, 주요 프로젝트 목록 메모</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>사전 준비물</p>
+            <p style={{ fontSize: 16, color: '#0E2750' }}>- 지원할 회사의 채용공고 (JD)</p>
+            <p style={{ fontSize: 16, color: '#0E2750' }}>- CareerEngineer 이력서 작성 워크북 (이력서가 먼저 완성되어야 합니다)</p>
+            <p style={{ fontSize: 16, color: '#0E2750' }}>- 각 회사의 재직 기간, 직책, 주요 프로젝트 목록 메모</p>
           </div>
           <RelatedWorkbookList
             title="선행 학습 권장 — 작성 전에 보면 좋은 워크북"
@@ -654,7 +772,7 @@ const CareerDescWorkbook = () => {
             ]}
           />
           <div style={{ background: '#F2F1EC', border: '1px solid #0E275033', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}>
-            <p style={{ fontSize: 12, color: '#0E2750', fontWeight: 700 }}>작성 내용을 반드시 다운로드해 주세요. 페이지를 새로 고치거나 창을 닫으면 모든 내용이 즉시 삭제됩니다. 수시로 '저장하기' 버튼을 눌러 파일로 다운로드하시기 바랍니다.</p>
+            <p style={{ fontSize: 16, color: '#0E2750', fontWeight: 700 }}>작성 내용을 반드시 다운로드해 주세요. 페이지를 새로 고치거나 창을 닫으면 모든 내용이 즉시 삭제됩니다. 수시로 '저장하기' 버튼을 눌러 파일로 다운로드하시기 바랍니다.</p>
           </div>
           <button 
             onClick={()=>{setPage('steps');setStep(0)}} 
@@ -663,7 +781,7 @@ const CareerDescWorkbook = () => {
             시작하기 →
           </button>
         </div>
-        <p style={{ color: '#6E7A8F', textAlign: 'center', fontSize: 12, marginTop: 16, lineHeight: 1.6 }}>© 2026 CareerEngineer. All Rights Reserved. 저작권법에 의하여 보호받는 저작물이므로 무단 전재와 무단 복제를 금합니다. 이 자료는 구매하신 분의 취업을 위한 개인 학습 용도로 자유롭게 활용하실 수 있으나, 자료의 전부 또는 일부를 다른 사람에게 공유하거나, 복제·재판매·재배포하는 것은 금지되어 있습니다. <strong>이를 위반할 경우 관련 법률에 따라 민·형사상 책임을 질 수 있습니다.</strong></p>
+        <p style={{ color: '#6E7A8F', textAlign: 'center', fontSize: 16, marginTop: 16, lineHeight: 1.6 }}>© 2026 CareerEngineer. All Rights Reserved. 저작권법에 의하여 보호받는 저작물이므로 무단 전재와 무단 복제를 금합니다. 이 자료는 구매하신 분의 취업을 위한 개인 학습 용도로 자유롭게 활용하실 수 있으나, 자료의 전부 또는 일부를 다른 사람에게 공유하거나, 복제·재판매·재배포하는 것은 금지되어 있습니다. <strong>이를 위반할 경우 관련 법률에 따라 민·형사상 책임을 질 수 있습니다.</strong></p>
         <StickyFooter />
       </div>
     </div>
@@ -686,15 +804,15 @@ const CareerDescWorkbook = () => {
         ['5','지원 직무 연결성','우리 팀 문제에 도움이 되는가?','경험이 우리 직무와 안 맞음'],
       ]} />
       <div style={{ background: '#FBFAF6', borderRadius: 8, padding: 12, marginTop: 8 }}>
-        <p style={{ fontSize: 12, fontWeight: 700, color: '#0E2750' }}>탈락하는 5가지 패턴:</p>
-        <p style={{ fontSize: 12, color: '#1B3A6B' }}>1. 업무분장표 ("담당했습니다"만 나열) 2. 숫자 없는 성과 3. 나의 역할 불명확 4. 기밀 노출 5. 성장 스토리 부재</p>
+        <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>탈락하는 5가지 패턴:</p>
+        <p style={{ fontSize: 16, color: '#1B3A6B' }}>1. 업무분장표 ("담당했습니다"만 나열) 2. 숫자 없는 성과 3. 나의 역할 불명확 4. 기밀 노출 5. 성장 스토리 부재</p>
       </div>
     </GP>
 
     <In id="company" label="지원 회사명" placeholder="예: 삼성전자, 카카오, 현대자동차" />
     <In id="position" label="지원 직무" placeholder="예: 퍼포먼스 마케팅, 품질관리, 백엔드 개발" />
 
-    <p style={{ fontSize: 14, fontWeight: 600, color: '#1B3A6B', marginBottom: 8 }}>경력 유형</p>
+    <p style={{ fontSize: 16, fontWeight: 600, color: '#1B3A6B', marginBottom: 8 }}>경력 유형</p>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {[{val:'junior',label:'경력 3년 이하'},{val:'mid',label:'경력 3~7년'},{val:'senior',label:'경력 7~12년'},{val:'exec',label:'경력 12년 이상'},{val:'change',label:'직무 전환 (현재와 다른 직무로 이동)'}].map(o=>{
         const active = ans.type===o.val;
@@ -730,15 +848,15 @@ const CareerDescWorkbook = () => {
         ['산업 전환형','"제조업 품질 → IT 품질 → 핀테크 QA" (핵심 역량은 유지)'],
         ['문제 해결형','"어디를 가든 비슷한 유형의 문제를 해결해온 스토리"'],
       ]} />
-      <p style={{ fontSize: 12, color: '#0E2750', marginTop: 8 }}>스토리라인은 경력기술서에 명시적으로 쓰는 것이 아니라, 성과의 선택과 배치를 통해 자연스럽게 드러나야 합니다.</p>
+      <p style={{ fontSize: 16, color: '#0E2750', marginTop: 8 }}>스토리라인은 경력기술서에 명시적으로 쓰는 것이 아니라, 성과의 선택과 배치를 통해 자연스럽게 드러나야 합니다.</p>
     </GP>
 
     <In id="story_one" label='Q2-1. 첫 직장에서 현재까지, 나의 경력을 한 문장으로 요약하면?' placeholder='"OO 분야에서 OO 역할로 시작하여, OO를 거쳐, 현재 OO 수준의 역량을 갖추게 되었다"' rows={3} />
     <Ex>{`마케팅 실무자로 시작하여 퍼포먼스 캠페인 최적화 전문성을 쌓고, 현재는 3인 팀을 리드하며 데이터 기반 마케팅 전략을 수립하는 수준으로 성장했다.\n\n자동차 부품 품질 엔지니어로 시작하여 협력사 품질감사와 IATF 인증 경험을 쌓고, 현재는 8명 팀을 관리하며 품질 시스템을 처음부터 구축할 수 있는 수준으로 성장했다.`}</Ex>
 
     <div style={{ marginBottom: 24 }}>
-      <label style={{ display: 'block', fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 8 }}>Q2-2. 나의 경력 스토리라인 유형은?</label>
-      <p style={{ fontSize: 12, color: '#6E7A8F', marginBottom: 12 }}>가이드의 4가지 유형 중 내 경력에 가장 가까운 것을 선택하세요.</p>
+      <label style={{ display: 'block', fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 8 }}>Q2-2. 나의 경력 스토리라인 유형은?</label>
+      <p style={{ fontSize: 16, color: '#6E7A8F', marginBottom: 12 }}>가이드의 4가지 유형 중 내 경력에 가장 가까운 것을 선택하세요.</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: 8, marginBottom: 12 }}>
         {[
           { v: '전문성 심화형', d: '같은 직무 안에서 깊이를 더해온 스토리' },
@@ -755,17 +873,17 @@ const CareerDescWorkbook = () => {
               className={`text-left p-3 rounded-lg border-2 transition-all ${selected ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
             >
               <p className={`text-sm font-semibold ${selected ? 'text-[#0E2750]' : 'text-[#0E2750]'}`}>{opt.v}</p>
-              <p style={{ fontSize: 12, color: '#6E7A8F', marginTop: 4, lineHeight: 1.625 }}>{opt.d}</p>
+              <p style={{ fontSize: 16, color: '#6E7A8F', marginTop: 4, lineHeight: 1.625 }}>{opt.d}</p>
             </button>
           );
         })}
       </div>
-      <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#1B3A6B', marginBottom: 4 }}>선택한 이유 (내 경력의 어떤 점이 이 유형에 해당하는지)</label>
+      <label style={{ display: 'block', fontSize: 16, fontWeight: 600, color: '#1B3A6B', marginBottom: 4 }}>선택한 이유 (내 경력의 어떤 점이 이 유형에 해당하는지)</label>
       <textarea
         value={ans.story_type_reason || ''}
         onChange={e => set('story_type_reason', e.target.value)}
         rows={2}
-        style={{ width: '100%', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F66', borderRadius: 8, fontSize: 14, outline: 'none' }}
+        style={{ width: '100%', paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, border: '1px solid #6E7A8F33', borderColor: '#6E7A8F66', borderRadius: 8, fontSize: 16, outline: 'none' }}
         placeholder="예: 같은 마케팅 직무 안에서 실무 → 퍼포먼스 전문가 → 팀 리드로 깊이가 쌓여왔기 때문"
       />
     </div>
@@ -806,7 +924,7 @@ const CareerDescWorkbook = () => {
         ['4','면접에서 5분 이상 설명할 수 있는가?','배경, 판단, 시행착오, 결과를 구체적으로 말할 수 있는가?'],
         ['5','조직에 파급효과가 있었는가?','이 성과 이후 팀/프로세스/매출에 지속 변화가 생겼는가?'],
       ]} />
-      <p style={{ fontSize: 12, color: '#0E2750', fontWeight: 700, marginTop: 8 }}>3개 이상 "예"인 경험만 경력기술서에 넣으세요.</p>
+      <p style={{ fontSize: 16, color: '#0E2750', fontWeight: 700, marginTop: 8 }}>3개 이상 "예"인 경험만 경력기술서에 넣으세요.</p>
     </GP>
 
     <GP id="g_perspective" title="가이드 보기: 같은 경험도 지원 직무에 따라 다르게 쓴다">
@@ -815,8 +933,8 @@ const CareerDescWorkbook = () => {
         ['불량률 40% 개선','품질 팀장: 협력사 50개사 감사 체계 구축한 관리 역량','품질 엔지니어: SPC/FMEA로 공정 파라미터 최적화한 기술 역량'],
       ]} />
       <div style={{ background: '#F2F1EC', borderRadius: 8, padding: 12, marginTop: 8 }}>
-        <p style={{ color: '#0E2750', fontSize: 12, fontWeight: 700 }}>관점 전환 질문:</p>
-        <p style={{ fontSize: 12, color: '#0E2750' }}>1. JD에서 가장 반복되는 키워드 3개는? 2. 내 경험과 연결되는 접점은? 3. 채용담당자가 "우리 팀에서도 해줄 수 있겠다"고 느낄 수 있는가?</p>
+        <p style={{ color: '#0E2750', fontSize: 16, fontWeight: 700 }}>관점 전환 질문:</p>
+        <p style={{ fontSize: 16, color: '#0E2750' }}>1. JD에서 가장 반복되는 키워드 3개는? 2. 내 경험과 연결되는 접점은? 3. 채용담당자가 "우리 팀에서도 해줄 수 있겠다"고 느낄 수 있는가?</p>
       </div>
     </GP>
 
@@ -837,11 +955,11 @@ const CareerDescWorkbook = () => {
       <p style={{ fontWeight: 700 }}>I (Initiative): 내가 주도적으로 한 행동/판단은 무엇인가</p>
       <p style={{ fontWeight: 700 }}>A (Achievement): 정량적 성과는 무엇인가</p>
       <p style={{ fontWeight: 700 }}>R (Ripple): 조직에 미친 파급효과는 무엇인가</p>
-      <p style={{ fontSize: 12, color: '#0E2750', marginTop: 8 }}>STAR 기법과 유사하지만, 경력기술서에는 "나의 역할 범위"와 "조직 파급효과"가 추가로 필요합니다.</p>
+      <p style={{ fontSize: 16, color: '#0E2750', marginTop: 8 }}>STAR 기법과 유사하지만, 경력기술서에는 "나의 역할 범위"와 "조직 파급효과"가 추가로 필요합니다.</p>
     </GP>
 
     <div style={{ background: '#F2F1EC', borderRadius: 12, padding: 16, marginBottom: 16, border: '1px solid #6E7A8F33' }}>
-      <p style={{ fontSize: 14, fontWeight: 900, color: '#0E2750', marginBottom: 12 }}>회사 1 (가장 최근 / 현재 재직 중)</p>
+      <p style={{ fontSize: 16, fontWeight: 900, color: '#0E2750', marginBottom: 12 }}>회사 1 (가장 최근 / 현재 재직 중)</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
         <In id="c1_company" label="회사명" placeholder="예: ABC테크" />
         <In id="c1_period" label="재직 기간" placeholder="예: 2021.03~현재" />
@@ -852,7 +970,7 @@ const CareerDescWorkbook = () => {
 
     {[1,2,3].map(n => (
       <div key={n} style={{ background: '#FFFFFF', border: '1px solid #6E7A8F33', borderColor: '#6E7A8F33', borderRadius: 12, padding: 16, marginBottom: 16 }}>
-        <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 12 }}>[핵심 성과 {n}]{n===3?' (선택)':''}</p>
+        <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 12 }}>[핵심 성과 {n}]{n===3?' (선택)':''}</p>
         <In id={`s${n}_title`} label={`Q5-${n}a. 성과 제목 (한 줄)`} placeholder='예: "전환율 최적화 프로젝트", "마케팅 대시보드 구축"' />
         <In id={`s${n}_bg`} label={`Q5-${n}b. [B] 이 성과가 나오기 전, 팀/조직이 겪던 문제는?`} placeholder='"CPA가 높았다"가 아니라 "CPA 15,000원으로 목표 대비 50% 초과". 왜 중요했는가?(KPI, 매출 영향 등)' rows={3} />
         <In id={`s${n}_role`} label={`Q5-${n}c. [R] 이 문제 해결을 위해 당신에게 주어진 역할은?`} placeholder="혼자? 팀 리드? 의사결정 권한 범위? 예산/인력?" rows={2} />
@@ -864,7 +982,7 @@ const CareerDescWorkbook = () => {
 
     <Tip>이전 회사 성과도 같은 형식으로 작성하세요. 이전 회사는 성과 1~2개면 충분합니다. 초기 경력(7년+ 전)은 성과 1개만 간략히.</Tip>
 
-    <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 12, marginTop: 16 }}>회사 2 (이전 회사)</p>
+    <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 12, marginTop: 16 }}>회사 2 (이전 회사)</p>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
       <In id="c2_company" label="회사명" placeholder="" />
       <In id="c2_period" label="재직 기간" placeholder="" />
@@ -935,24 +1053,24 @@ const CareerDescWorkbook = () => {
     <div style={{ textAlign: 'center', marginBottom: 24 }}>
       <div style={{ width: 56, height: 56, background: '#F2F1EC', borderRadius: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginBottom: 12 }}></div>
       <h2 style={{ fontSize: 20, fontWeight: 900, color: '#0E2750', marginBottom: 4 }}>경력기술서 워크북 작성 완료!</h2>
-      <p style={{ fontSize: 14, color: '#6E7A8F' }}>작성 결과를 확인하고 다운로드하세요.</p>
+      <p style={{ fontSize: 16, color: '#6E7A8F' }}>작성 결과를 확인하고 다운로드하세요.</p>
     </div>
     <Warn title="반드시 다운로드하세요!">페이지를 닫으면 모든 내용이 사라집니다.</Warn>
 
     <div style={{ background: '#F2F1EC', borderRadius: 12, padding: 20, marginBottom: 20, gap: 12 }}>
-      <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750' }}>작성 결과 요약</p>
-      {ans.summary && <div><p style={{ fontSize: 12, fontWeight: 700, color: '#0E2750' }}>경력 요약</p><p style={{ fontSize: 14, background: '#FFFFFF', borderRadius: 8, padding: 12, border: '1px solid #6E7A8F33' }}>{ans.summary}</p></div>}
-      {[1,2,3].filter(n=>ans[`str${n}`]).map(n=><div key={n}><p style={{ fontSize: 12, fontWeight: 700, color: '#0E2750' }}>강점 {n}</p><p style={{ fontSize: 14, background: '#FFFFFF', borderRadius: 8, padding: 12, border: '1px solid #6E7A8F33' }}>{ans[`str${n}`]}</p></div>)}
+      <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>작성 결과 요약</p>
+      {ans.summary && <div><p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>경력 요약</p><p style={{ fontSize: 16, background: '#FFFFFF', borderRadius: 8, padding: 12, border: '1px solid #6E7A8F33' }}>{ans.summary}</p></div>}
+      {[1,2,3].filter(n=>ans[`str${n}`]).map(n=><div key={n}><p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>강점 {n}</p><p style={{ fontSize: 16, background: '#FFFFFF', borderRadius: 8, padding: 12, border: '1px solid #6E7A8F33' }}>{ans[`str${n}`]}</p></div>)}
       {[1,2,3].filter(n=>ans[`s${n}_title`]).map(n=>(
-        <div key={n}><p style={{ fontSize: 12, fontWeight: 700, color: '#0E2750' }}>성과 {n}: {ans[`s${n}_title`]}</p>
-          <div className="whitespace-pre-line" style={{ fontSize: 12, background: '#FFFFFF', borderRadius: 8, padding: 12, border: '1px solid #6E7A8F33' }}>
+        <div key={n}><p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>성과 {n}: {ans[`s${n}_title`]}</p>
+          <div className="whitespace-pre-line" style={{ fontSize: 16, background: '#FFFFFF', borderRadius: 8, padding: 12, border: '1px solid #6E7A8F33' }}>
             {ans[`s${n}_bg`]&&`배경: ${ans[`s${n}_bg`]}\n`}{ans[`s${n}_role`]&&`역할: ${ans[`s${n}_role`]}\n`}{ans[`s${n}_action`]&&`행동: ${ans[`s${n}_action`]}\n`}{ans[`s${n}_result`]&&`성과: ${ans[`s${n}_result`]}\n`}{ans[`s${n}_ripple`]&&`파급: ${ans[`s${n}_ripple`]}`}
           </div>
         </div>
       ))}
     </div>
         {/* ═══ 관련 자료 + 멘토링 안내 (PART 6-4, 7-8) ═══ */}
-        <div style={{ background: '#F2F1EC', border: '1px solid rgba(62, 79, 115, 0.2)', borderRadius: 10, padding: 16, marginBottom: 16 }}>
+        <div style={{ background: '#F2F1EC', border: '1px solid rgba(110, 122, 143, 0.2)', borderRadius: 10, padding: 16, marginBottom: 16 }}>
           <p style={{ fontSize: 16, fontWeight: 600, color: '#1B3A6B', letterSpacing: 0.5, textTransform: 'uppercase', margin: 0, marginBottom: 8 }}>INFO · 다음 STEP 안내</p>
           <p style={{ fontSize: 16, color: '#0E2750', margin: 0, lineHeight: 1.6 }}>경력기술서 완성 후 경력 면접 가이드 & 워크북으로 이동하세요</p>
         </div>
@@ -966,21 +1084,21 @@ const CareerDescWorkbook = () => {
           ]}
         />
 
-        <div style={{ background: '#FBFAF6', border: '1px solid rgba(182, 117, 74, 0.2)', borderRadius: 10, padding: 16, marginBottom: 16 }}>
+        <div style={{ background: '#FBFAF6', border: '1px solid rgba(201, 168, 106, 0.2)', borderRadius: 10, padding: 16, marginBottom: 16 }}>
           <p style={{ fontSize: 16, fontWeight: 600, color: '#C9A86A', letterSpacing: 0.5, textTransform: 'uppercase', margin: 0, marginBottom: 8 }}>멘토링 안내</p>
           <p style={{ fontSize: 16, color: '#0E2750', margin: 0, lineHeight: 1.6 }}>경력 전환이나 공백이 있다면 <a href="https://www.latpeed.com/products/LimF9" target="_blank" rel="noopener noreferrer" style={{ color: '#C9A86A', fontWeight: 600, textDecoration: 'underline' }}>1:1 경력 컨설팅</a>을 받으세요</p>
         </div>
 
 
-    <button onClick={dl} className="py-3.5" style={{ width: '100%', borderRadius: 12, fontWeight: 700, fontSize: 16, transition: 'all 150ms', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#0E2750', color: '#ffffff' }}>
+    <button onClick={dl} className="py-3.5" style={{ width: '100%', color: '#FFFFFF', borderRadius: 12, fontWeight: 700, fontSize: 16, transition: 'all 150ms', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#0E2750', color: '#ffffff' }}>
       워드 파일로 다운로드
     </button>
-    {downloaded && <div style={{ marginTop: 16, background: '#FBFAF6', border: '1px solid #6E7A8F33', borderColor: '#A8853F', borderRadius: 12, padding: 16, textAlign: 'center' }}><p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750' }}>다운로드 완료!</p></div>}
+    {downloaded && <div style={{ marginTop: 16, background: '#FBFAF6', border: '1px solid #6E7A8F33', borderColor: '#A8853F', borderRadius: 12, padding: 16, textAlign: 'center' }}><p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750' }}>다운로드 완료!</p></div>}
 
     <div style={{ marginTop: 20, background: '#F2F1EC', border: '1px solid #6E7A8F33', borderColor: '#6E7A8F33', borderRadius: 12, padding: 16 }}>
-      <p style={{ fontSize: 14, fontWeight: 700, color: '#0E2750', marginBottom: 8 }}>CareerEngineer 연계 자료</p>
-      <p style={{ fontSize: 12, color: '#0E2750' }}>- 경력기술서 전: 이력서 가이드 & 워크북 / 채용공고 분석 & 직무분석 가이드</p>
-      <p style={{ fontSize: 12, color: '#0E2750' }}>- 경력기술서 후: 자소서 5대항목 가이드 & 워크북 / 경력 면접 가이드 & 워크북</p>
+      <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 8 }}>CareerEngineer 연계 자료</p>
+      <p style={{ fontSize: 16, color: '#0E2750' }}>- 경력기술서 전: 이력서 가이드 & 워크북 / 채용공고 분석 & 직무분석 가이드</p>
+      <p style={{ fontSize: 16, color: '#0E2750' }}>- 경력기술서 후: 자소서 5대항목 가이드 & 워크북 / 경력 면접 가이드 & 워크북</p>
     </div>
   </div>);
 
@@ -1056,7 +1174,7 @@ const CareerDescWorkbook = () => {
       ]} />
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         {/* ═══ Sticky Header (PART 7-6) ═══ */}
-        <div style={{ position: 'sticky', top: 16, zIndex: 10, background: '#F2F1EC', borderRadius: 14, padding: 16, border: '1px solid #6E7A8F33', marginBottom: 16, boxShadow: '0 2px 8px rgba(11, 23, 51, 0.12)' }}>
+        <div style={{ position: 'sticky', top: 16, zIndex: 10, background: '#F2F1EC', borderRadius: 14, padding: 16, border: '1px solid #6E7A8F33', marginBottom: 16, boxShadow: '0 2px 8px rgba(14, 39, 80, 0.12)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
             <CELockupA height={32} />
             {/* 중: 현재 단계 (클릭 시 7단계 드롭다운) */}
@@ -1086,7 +1204,7 @@ const CareerDescWorkbook = () => {
 
         {/* 임시저장 토스트 */}
         {downloaded && (
-          <div style={{ background: '#FBFAF6', border: '1px solid rgba(182, 117, 74, 0.2)', borderRadius: 10, padding: 12, marginBottom: 16, textAlign: 'center' }}>
+          <div style={{ background: '#FBFAF6', border: '1px solid rgba(201, 168, 106, 0.2)', borderRadius: 10, padding: 12, marginBottom: 16, textAlign: 'center' }}>
             <p style={{ fontSize: 16, color: '#C9A86A', fontWeight: 600, margin: 0 }}>✓ 임시저장 완료 — 다운로드된 .doc 파일을 확인하세요</p>
           </div>
         )}
@@ -1110,7 +1228,7 @@ const CareerDescWorkbook = () => {
             {step<9 && <button onClick={next} style={{ flex: 1, background: '#0E2750', color: '#ffffff', border: 'none', padding: '12px 24px', borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: 'pointer' }}>다음</button>}
           </div>
         </div>
-        <p style={{ color: '#6E7A8F', textAlign: 'center', fontSize: 12, lineHeight: 1.6 }}>© 2026 CareerEngineer. All Rights Reserved. 저작권법에 의하여 보호받는 저작물이므로 무단 전재와 무단 복제를 금합니다. 이 자료는 구매하신 분의 취업을 위한 개인 학습 용도로 자유롭게 활용하실 수 있으나, 자료의 전부 또는 일부를 다른 사람에게 공유하거나, 복제·재판매·재배포하는 것은 금지되어 있습니다. <strong>이를 위반할 경우 관련 법률에 따라 민·형사상 책임을 질 수 있습니다.</strong></p>
+        <p style={{ color: '#6E7A8F', textAlign: 'center', fontSize: 16, lineHeight: 1.6 }}>© 2026 CareerEngineer. All Rights Reserved. 저작권법에 의하여 보호받는 저작물이므로 무단 전재와 무단 복제를 금합니다. 이 자료는 구매하신 분의 취업을 위한 개인 학습 용도로 자유롭게 활용하실 수 있으나, 자료의 전부 또는 일부를 다른 사람에게 공유하거나, 복제·재판매·재배포하는 것은 금지되어 있습니다. <strong>이를 위반할 경우 관련 법률에 따라 민·형사상 책임을 질 수 있습니다.</strong></p>
         <StickyFooter />
       </div>
     </div>
