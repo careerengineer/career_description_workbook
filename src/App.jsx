@@ -759,14 +759,14 @@ ${skillSection}
           </div>
           <div style={{ background: '#FBFAF6', border: '1px solid #C9A86A33', color: '#0E2750', padding: 16, borderRadius: 10, marginBottom: 16 }}>
             <p style={{ fontSize: 16, fontWeight: 700, color: '#0E2750', marginBottom: 4 }}>사전 준비물</p>
-            <p style={{ fontSize: 16, color: '#0E2750' }}>- 지원할 회사의 채용공고 (JD)</p>
+            <p style={{ fontSize: 16, color: '#0E2750' }}>- 지원할 회사의 채용공고 (직무상세내용)</p>
             <p style={{ fontSize: 16, color: '#0E2750' }}>- CareerEngineer 이력서 작성 워크북 (이력서가 먼저 완성되어야 합니다)</p>
             <p style={{ fontSize: 16, color: '#0E2750' }}>- 각 회사의 재직 기간, 직책, 주요 프로젝트 목록 메모</p>
           </div>
           <RelatedWorkbookList
             title="선행 학습 권장 — 작성 전에 보면 좋은 워크북"
             items={[
-              { id: 'job_analysis', hint: '어필 우선순위를 결정할 JD 분석' },
+              { id: 'job_analysis', hint: '어필 우선순위를 결정할 직무상세내용 분석' },
               { id: 'experience', hint: '성과의 출처 (경험 인벤토리)' },
               { id: 'resume', hint: '이력서가 먼저 완성되어야 합니다' },
             ]}
@@ -831,8 +831,8 @@ ${skillSection}
       })}
     </div>
 
-    <In id="jd_kw" label="Q1-1. JD에서 가장 많이 반복되는 키워드 3~5개는?" placeholder="이력서 워크북 PART 2 결과를 옮기세요" rows={2} />
-    <In id="jd_core" label="Q1-2. 이 직무에서 채용담당자가 가장 중요하게 보는 역량 3가지는?" placeholder="JD 필수 요건, 우대 사항에서 추론" rows={2} />
+    <In id="jd_kw" label="Q1-1. 직무상세내용에서 가장 많이 반복되는 키워드 3~5개는?" placeholder="이력서 워크북 PART 2 결과를 옮기세요" rows={2} />
+    <In id="jd_core" label="Q1-2. 이 직무에서 채용담당자가 가장 중요하게 보는 역량 3가지는?" placeholder="직무상세내용 필수 요건, 우대 사항에서 추론" rows={2} />
     <In id="jd_problem" label="Q1-3. 이 회사가 현재 겪는 문제/과제는? 나는 어떻게 도움이 될 수 있는가?" placeholder="회사 뉴스, IR 자료, 잡플래닛 리뷰에서 추론" rows={3} />
   </div>);
 
@@ -918,7 +918,7 @@ ${skillSection}
 
     <GP id="g_criteria" title="가이드 보기: 성과 선별 기준 5가지">
       <Tbl headers={['#','선별 기준','자가 진단 질문']} rows={[
-        ['1','JD 키워드와 직접 연결되는가?','이 경험에 사용한 도구/역량이 JD에 나오는가?'],
+        ['1','직무상세내용 키워드와 직접 연결되는가?','이 경험에 사용한 도구/역량이 직무상세내용에 나오는가?'],
         ['2','정량적 성과를 말할 수 있는가?','결과를 숫자로 표현할 수 있는가?'],
         ['3','나의 주도적 역할이 명확한가?','"당신이 없었으면 이 결과가 안 나왔을 것"이라고 말할 수 있는가?'],
         ['4','면접에서 5분 이상 설명할 수 있는가?','배경, 판단, 시행착오, 결과를 구체적으로 말할 수 있는가?'],
@@ -934,13 +934,13 @@ ${skillSection}
       ]} />
       <div style={{ background: '#F2F1EC', borderRadius: 8, padding: 12, marginTop: 8 }}>
         <p style={{ color: '#0E2750', fontSize: 16, fontWeight: 700 }}>관점 전환 질문:</p>
-        <p style={{ fontSize: 16, color: '#0E2750' }}>1. JD에서 가장 반복되는 키워드 3개는? 2. 내 경험과 연결되는 접점은? 3. 채용담당자가 "우리 팀에서도 해줄 수 있겠다"고 느낄 수 있는가?</p>
+        <p style={{ fontSize: 16, color: '#0E2750' }}>1. 직무상세내용에서 가장 반복되는 키워드 3개는? 2. 내 경험과 연결되는 접점은? 3. 채용담당자가 "우리 팀에서도 해줄 수 있겠다"고 느낄 수 있는가?</p>
       </div>
     </GP>
 
     <In id="exp_list" label="Q4-1. 가장 최근 회사에서 수행한 주요 업무/프로젝트를 모두 나열하세요 (5~10개)" placeholder='"내가 주도적으로 한 것" 중심으로. 사소한 것도 일단 다 적으세요.' rows={6} />
 
-    <Tip>위에서 나열한 각 경험을 5가지 기준(JD 연결, 정량 성과, 주도 역할, 면접 설명, 조직 파급)으로 평가하세요. O가 3개 이상인 것만 아래에 적으세요.</Tip>
+    <Tip>위에서 나열한 각 경험을 5가지 기준(직무상세내용 연결, 정량 성과, 주도 역할, 면접 설명, 조직 파급)으로 평가하세요. O가 3개 이상인 것만 아래에 적으세요.</Tip>
 
     <In id="exp_selected" label="Q4-2. 선별 결과: 경력기술서에 넣을 성과 목록 (O가 3개 이상인 것만)" placeholder="최근 회사 3~5개, 이전 회사 2~3개, 초기 회사 1~2개가 적절합니다." rows={4} />
   </div>);
@@ -1015,7 +1015,7 @@ ${skillSection}
   // ===== PART 8: 역량 요약 =====
   case 7: return (<div>
     <ST title="PART 8. 핵심 역량 요약" sub="경력기술서 마지막에 배치할 역량 요약을 작성합니다." />
-    <In id="hard_skills" label="하드 스킬 (도구, 기술, 방법론)" placeholder="JD 키워드와 매칭되는 것 우선. PART 5에서 언급한 도구/기술 모두 포함" rows={2} />
+    <In id="hard_skills" label="하드 스킬 (도구, 기술, 방법론)" placeholder="직무상세내용 키워드와 매칭되는 것 우선. PART 5에서 언급한 도구/기술 모두 포함" rows={2} />
     <In id="soft_skills" label="소프트 스킬 (역량, 전문성)" placeholder="프로젝트 리드, 데이터 기반 의사결정, 크로스펑셔널 협업 등" rows={2} />
     <In id="certs" label="자격증 / 인증" placeholder="직무 관련만. 연관도 높은 순서로" />
   </div>);
@@ -1029,7 +1029,7 @@ ${skillSection}
       {id:'f4',t:'모든 성과에 BRIAR(배경-역할-행동-성과-파급)가 포함되어 있는가?',a:'PART 5 재확인'},
       {id:'f5',t:'"업무를 담당했습니다" 같은 업무 나열이 아닌 성과 중심인가?',a:'"담당" → "달성" 전환'},
       {id:'f6',t:'나의 주도적 역할이 명확히 드러나는가?',a:'"나는"과 "팀은"을 구분'},
-      {id:'f7',t:'JD 키워드가 자연스럽게 녹아 있는가?',a:'PART 1 키워드와 대조'},
+      {id:'f7',t:'직무상세내용 키워드가 자연스럽게 녹아 있는가?',a:'PART 1 키워드와 대조'},
       {id:'f8',t:'경력 스토리라인(성장 흐름)이 보이는가?',a:'PART 2 재확인'},
       {id:'f9',t:'최근 경력이 가장 상세하고 과거는 간략한가?',a:'경력 깊이 조절'},
       {id:'f10',t:'기밀 사항이 모두 제거/대체되었는가?',a:'고객사명→"A사", 금액→범위화'},
@@ -1077,7 +1077,7 @@ ${skillSection}
 
         <RelatedWorkbookList
           items={[
-            { id: 'job_analysis', hint: '어필 우선순위를 결정할 JD 분석' },
+            { id: 'job_analysis', hint: '어필 우선순위를 결정할 직무상세내용 분석' },
             { id: 'experience', hint: '성과의 출처 (경험 인벤토리)' },
             { id: 'resume', hint: '이력서와 경력기술서는 세트' },
             { id: 'interview_career', hint: '경력기술서 내용이 면접 질문으로' },
@@ -1109,7 +1109,7 @@ ${skillSection}
   // 중간 저장 (PART 7-7)
   const savePartial = () => {
     const today = new Date().toISOString().slice(0,10);
-    const labels = { company:'지원 회사',position:'지원 직무',type:'지원자 유형',jd_kw:'JD 핵심 키워드',jd_core:'채용담당자 중요 역량',jd_problem:'회사 과제와 나의 도움',
+    const labels = { company:'지원 회사',position:'지원 직무',type:'지원자 유형',jd_kw:'직무상세내용 핵심 키워드',jd_core:'채용담당자 중요 역량',jd_problem:'회사 과제와 나의 도움',
       story_one:'경력 한 문장',story_type:'스토리라인 유형',story_type_reason:'스토리라인 유형 선택 이유',story_growth:'이직별 성장 포인트',
       str1:'강점 1',str2:'강점 2',str3:'강점 3',summary:'경력 요약',
       exp_list:'경험 나열',exp_selected:'선별된 성과',
