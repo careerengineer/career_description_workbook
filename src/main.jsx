@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import CareerDescWorkbook from '../CareerEngineer_career_description_workbook.jsx'
+import App from './App'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CareerDescWorkbook />
+    <App />
   </React.StrictMode>,
 )
